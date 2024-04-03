@@ -74,17 +74,14 @@ namespace WindowsFormsApp
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         ~Form1()
@@ -101,24 +98,23 @@ namespace WindowsFormsApp
             FillData();
         }
 
-        private void insertButton_Click(object sender, EventArgs e)
-        {
-            DataRow lastRow = dataSet.Tables["Couriers"].Rows[dataSet.Tables["Couriers"].Rows.Count - 1];
-
-            string insertCommand = "INSERT INTO Couriers VALUES";
-
-            SqlCommand command = new SqlCommand();
-        }
-
         private void updateButton_Click(object sender, EventArgs e)
         {
             dataAdapterEmployees.Update(dataSet, "Employees");
-            FillData();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            if (dataGridView2.SelectedRows.Count > 0 && dataGridView2.SelectedRows[0].Index < dataGridView2.Rows.Count - 1)
+            {
+                string command = "DELETE FROM Employees WHERE EmployeeID =" + dataGridView2.SelectedRows[0].Cells[0].Value.ToString();
 
+                SqlCommand deleteCommand = new SqlCommand(command, sqlConnection);
+
+                deleteCommand.ExecuteNonQuery();
+
+                FillData();
+            }
         }
     }
 }
