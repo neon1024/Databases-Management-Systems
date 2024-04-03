@@ -69,7 +69,7 @@ namespace WindowsFormsApp
 
         string getSqlConnectionString()
         {
-            return "Data Source=neon1024\\SQLEXPRESS;Initial Catalog=Dropshipping;Integrated Security=true;";
+            return "Data Source=.\\SQLEXPRESS;Initial Catalog=Dropshipping;Integrated Security=true;";
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -101,15 +101,24 @@ namespace WindowsFormsApp
             FillData();
         }
 
-        private void nextButton_Click(object sender, EventArgs e)
+        private void insertButton_Click(object sender, EventArgs e)
         {
-            // TODO
+            DataRow lastRow = dataSet.Tables["Couriers"].Rows[dataSet.Tables["Couriers"].Rows.Count - 1];
+
+            string insertCommand = "INSERT INTO Couriers VALUES";
+
+            SqlCommand command = new SqlCommand();
         }
 
         private void updateButton_Click(object sender, EventArgs e)
         {
             dataAdapterEmployees.Update(dataSet, "Employees");
             FillData();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
