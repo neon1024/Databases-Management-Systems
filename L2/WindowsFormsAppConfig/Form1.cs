@@ -14,17 +14,25 @@ namespace WindowsFormsAppConfig
 {
     public partial class Form1 : Form
     {
+        string SCENARIO = "1";
+
         SqlConnection sqlConnection;
-        SqlDataAdapter dataAdapterCouriers;  // Couriers
-        SqlDataAdapter dataAdapterEmployees;  // Employees
+        SqlDataAdapter dataAdapterMaster;  // Couriers
+        SqlDataAdapter dataAdapterDetail;  // Employees
         DataSet dataSet;
-        BindingSource bindingSourceCouriers;
-        BindingSource bindingSourceEmployees;
+        BindingSource bindingSourceMaster;
+        BindingSource bindingSourceDetail;
 
         SqlCommandBuilder commandBuilder;
 
-        string queryCouriers;
-        string queryEmployees;
+        string masterQuery;
+        string detailQuery;
+
+        string masterTable;
+        string detailTable;
+
+        string masterTableID;
+        string detailTableID;
 
         public Form1()
         {
@@ -33,37 +41,48 @@ namespace WindowsFormsAppConfig
 
         void FillData()
         {
-            queryCouriers = "SELECT * FROM Couriers";
-            queryEmployees = "SELECT * FROM Employees";
+            masterTable = ConfigurationManager.AppSettings[SCENARIO + "." + "masterTable"];
+            detailTable = ConfigurationManager.AppSettings[SCENARIO + "." + "detailTable"];
 
-            dataAdapterCouriers = new SqlDataAdapter(queryCouriers, sqlConnection);
-            dataAdapterEmployees = new SqlDataAdapter(queryEmployees, sqlConnection);
+            masterLabel.Text = masterTable.ToString();
+            detailLabel.Text = detailTable.ToString();
+
+            masterTableID = ConfigurationManager.AppSettings[SCENARIO + "." + "masterTableID"];
+            detailTableID = ConfigurationManager.AppSettings[SCENARIO + "." + "detailTableID"];
+
+            masterQuery = $"SELECT * FROM {masterTable}";
+            detailQuery = $"SELECT * FROM {detailTable}";
+
+            dataAdapterMaster = new SqlDataAdapter(masterQuery, sqlConnection);
+            dataAdapterDetail = new SqlDataAdapter(detailQuery, sqlConnection);
 
             dataSet = new DataSet();
 
-            dataAdapterCouriers.Fill(dataSet, "Couriers");
-            dataAdapterEmployees.Fill(dataSet, "Employees");
+            dataAdapterMaster.Fill(dataSet, masterTable);
+            dataAdapterDetail.Fill(dataSet, detailTable);
 
-            commandBuilder = new SqlCommandBuilder(dataAdapterEmployees);
+            commandBuilder = new SqlCommandBuilder(dataAdapterDetail);
 
-            dataSet.Relations.Add("CouriersEmployees",
-                dataSet.Tables["Couriers"].Columns["CourierID"],
-                dataSet.Tables["Employees"].Columns["CourierID"]);
+            dataSet.Relations.Add(masterTable + detailTable,
+                dataSet.Tables[masterTable].Columns[masterTableID],
+                dataSet.Tables[detailTable].Columns[masterTableID]);
 
             // Method 1
-            /*
-            this.dataGridView1.DataSource = dataSet.Tables["Couriers"];
+            
+            this.dataGridView1.DataSource = dataSet.Tables[masterTable];
             this.dataGridView2.DataSource = this.dataGridView1.DataSource;
-            this.dataGridView2.DataMember = "CouriersEmployees";
-            */
+            this.dataGridView2.DataMember = masterTable + detailTable;
+            
 
             // Method 2
-            bindingSourceCouriers = new BindingSource();
-            bindingSourceCouriers.DataSource = dataSet.Tables["Couriers"];
-            bindingSourceEmployees = new BindingSource(bindingSourceCouriers, "CouriersEmployees");
+            /*
+            bindingSourceMaster = new BindingSource();
+            bindingSourceMaster.DataSource = dataSet.Tables[masterTable];
+            bindingSourceDetail = new BindingSource(bindingSourceDetail, masterTable + detailTable);
 
-            this.dataGridView1.DataSource = bindingSourceCouriers;
-            this.dataGridView2.DataSource = bindingSourceEmployees;
+            this.dataGridView1.DataSource = bindingSourceMaster;
+            this.dataGridView2.DataSource = bindingSourceDetail;
+            */
 
             commandBuilder.GetUpdateCommand();
         }
@@ -101,14 +120,14 @@ namespace WindowsFormsAppConfig
 
         private void updateButton_Click(object sender, EventArgs e)
         {
-            dataAdapterEmployees.Update(dataSet, "Employees");
+            dataAdapterDetail.Update(dataSet, detailTable);
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
             if (dataGridView2.SelectedRows.Count > 0 && dataGridView2.SelectedRows[0].Index < dataGridView2.Rows.Count - 1)
             {
-                string command = "DELETE FROM Employees WHERE EmployeeID =" + dataGridView2.SelectedRows[0].Cells[0].Value.ToString();
+                string command = $"DELETE FROM {detailTable} WHERE {detailTableID} =" + dataGridView2.SelectedRows[0].Cells[0].Value.ToString();
 
                 SqlCommand deleteCommand = new SqlCommand(command, sqlConnection);
 

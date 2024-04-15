@@ -7,3 +7,13 @@ D:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\bin\D
 D:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\bin\Debug\WindowsFormsAppConfig.pdb
 D:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.exe
 D:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.pdb
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\bin\Debug\WindowsFormsAppConfig.exe.config
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\bin\Debug\WindowsFormsAppConfig.exe
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\bin\Debug\WindowsFormsAppConfig.pdb
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.csproj.AssemblyReference.cache
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.Properties.Resources.resources
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.csproj.GenerateResource.cache
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.csproj.CoreCompileInputs.cache
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.exe
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.pdb
+C:\Coding Spaces\UBB\Databases-Management-Systems\L2\WindowsFormsAppConfig\obj\Debug\WindowsFormsAppConfig.Form1.resources
